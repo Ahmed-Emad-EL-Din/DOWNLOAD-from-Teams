@@ -102,18 +102,22 @@ function findTeamsVideoFrame() {
   }
 }
 setInterval(findTeamsVideoFrame, 2000);` },
-    { name: 'README.md', type: 'file', size: '2.5 KB', content: `# Teams-to-Drive Browser Sync Architecture 🚀
+    { name: 'README.md', type: 'file', size: '2.8 KB', content: `# 🖥️ Virtual Chrome Desktop & Drive Transporter 📦
 
-This repo details and implements a custom browser-level network workflow:
-1. **GitHub Setup**: Access this source code to verify script integrity.
-2. **Launch Chromium Sandbox**: Spins up a virtual secure chromium instance.
-3. **Install Extension**: Installs the \`Teams Stream Downloader\` in Chrome.
-4. **Acquire Target Media**: Securely connects to Teams to segment and download past meeting videos to your virtual storage.
-5. **Direct Google Drive Backlist**: Integrates with Google Drive API for transparent, multi-part parallel backup.
+This repository provides a complete, browser-accessible, high-speed graphical Linux desktop hosted in GitHub Codespaces.
 
-### Features
-- Stream segment reconstruction bypasses authentication blockades.
-- Localized Google Drive auth using Firebase/OAuth ensures data is never leaked to external services.` },
+### 🛠️ Step-by-Step Setup Guide
+
+1. **Launch the Cloud Server**: Start your GitHub Codespace using this repository.
+2. **Open Virtual Desktop**: Visit port \`6080\` to access NoVNC. Click **Connect** (password: \`password\`).
+3. **Run Google Chrome**: Since Ubuntu's default uses snapd (which fails inside Docker), copy/paste this custom command inside your Codespaces terminal to install real Google Chrome:
+   \`\`\`bash
+   sudo apt-get update && sudo apt-get install -y wget && wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && sudo apt-get install -y ./google-chrome-stable_current_amd64.deb && rm google-chrome-stable_current_amd64.deb && export DISPLAY=:1 && google-chrome --no-sandbox --disable-dev-shm-usage &
+   \`\`\`
+   Google Chrome will pop up immediately on your VNC display!
+
+4. **Install Downloader Extension**: In Chrome on the VNC display, install the **MS Video & Transcript Downloader** extension:
+   https://chromewebstore.google.com/detail/ms-teams-video-transcript/hmljlkhcebhkkhbbafiheolbneecoinp` },
   ];
 
   const handleFileClick = (fileName: string, type: string) => {
@@ -142,10 +146,10 @@ This repo details and implements a custom browser-level network workflow:
             <div className="flex items-center gap-2">
               <span className="text-[#58a6ff] hover:underline font-semibold cursor-pointer">ahmedconan</span>
               <span className="text-[#8b949e]">/</span>
-              <span className="font-semibold text-white cursor-pointer hover:underline">teams-to-drive-extension</span>
+              <span className="font-semibold text-white cursor-pointer hover:underline">virtual-chrome-desktop</span>
               <span className="bg-[#21262d] text-xs px-2 py-0.5 rounded-full border border-[#30363d] text-[#8b949e]">Public</span>
             </div>
-            <p className="text-xs text-[#8b949e] mt-1">Simulated Chromium sandbox with MS Teams capture automation and custom Drive backup.</p>
+            <p className="text-xs text-[#8b949e] mt-1">Graphical Linux desktop sandbox running un-sandboxed Google Chrome and extension environment on display :1.</p>
           </div>
         </div>
 
