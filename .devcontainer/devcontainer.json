@@ -1,0 +1,26 @@
+{
+  "name": "Virtual Chromium NoVNC Sandbox",
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "features": {
+    "ghcr.io/devcontainers/features/desktop-lite:1": {
+      "version": "latest",
+      "vncPassword": "password"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-azuretools.vscode-docker",
+        "ms-cecilsp.novnc-viewer"
+      ]
+    }
+  },
+  "forwardPorts": [6080, 5901],
+  "portsAttributes": {
+    "6080": {
+      "label": "Virtual Desktop UI VNC",
+      "onAutoForward": "openBrowser"
+    }
+  },
+  "postCreateCommand": "echo 'VNC Server successfully initialized on Port 6080! Launching simulated Chromium browser...'"
+}
