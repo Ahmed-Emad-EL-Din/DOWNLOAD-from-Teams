@@ -372,22 +372,46 @@ This repo details and implements a custom browser-level network workflow:
 
                 <div className="p-4 bg-amber-500/[0.04] border border-amber-500/20 rounded-lg space-y-3">
                   <h3 className="text-amber-400 font-bold text-sm flex items-center gap-2">
-                    🖥️ White/Blank Screen in NoVNC? Here is exactly what to do!
+                    🖥️ Running Chrome on the NoVNC Desktop: What to do now!
                   </h3>
                   <p className="text-xs text-gray-300 leading-relaxed">
-                    Ubuntu's default <code className="text-amber-300 font-mono">chromium-browser</code> package is just a redirection wrapper to Ubuntu <strong>snaps</strong>. However, unprivileged Docker containers (like GitHub Codespaces or Gitpod) are completely locked out of using <strong>snapd</strong>! This is why your Chromium snap install skipped and left you with a blank screen.
+                    Excellent! Since the installation has completed successfully, you now have a real standalone Google Chrome fully set up.
                   </p>
-                  <p className="text-xs font-semibold text-white">
-                    Copy and paste this multi-stage command into your GitHub Codespaces Terminal to install <strong>real standalone Google Chrome</strong> (no snaps required) and launch it inside VNC instantly:
-                  </p>
-                  <div className="p-3 bg-black/50 rounded border border-[#30363d] font-mono text-xs text-[#58a6ff] select-all overflow-x-auto whitespace-pre leading-relaxed">
-                    {`sudo apt-get update && sudo apt-get install -y wget && wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && sudo apt-get install -y ./google-chrome-stable_current_amd64.deb && rm google-chrome-stable_current_amd64.deb && export DISPLAY=:1 && google-chrome --no-sandbox --disable-dev-shm-usage &`}
+                  
+                  <div className="space-y-2 mt-2">
+                    <h4 className="text-xs font-semibold text-white flex items-center gap-1.5">
+                      ⚡ Action 1: Execute the Launch Command in your Codespace Terminal
+                    </h4>
+                    <p className="text-[11px] text-gray-400 leading-relaxed">
+                      Copy and run this exact command in your VS Code / Codespace terminal to push the Google Chrome window directly onto your VNC screen:
+                    </p>
+                    <div className="p-2.5 bg-black/50 rounded border border-[#30363d] font-mono text-xs text-[#58a6ff] select-all overflow-x-auto whitespace-pre leading-relaxed">
+                      {`export DISPLAY=:1 && google-chrome --no-sandbox --disable-dev-shm-usage &`}
+                    </div>
                   </div>
-                  <ol className="list-decimal pl-5 text-[11px] text-gray-400 space-y-1.5 leading-relaxed">
-                    <li>Type or paste the above line into your bottom Terminal window in VS Code/GitHub and press <strong>Enter</strong>.</li>
-                    <li>This will download the official Google Chrome executable package directly from Google servers, install all underlying dependencies cleanly, and launch the browser targeted directly on display <strong>:1</strong> (the exact screen connected to your VNC browser viewer tab!).</li>
-                    <li>Watch your NoVNC browser viewer tab—<strong>Google Chrome will pop up instantly on your screen</strong>, fully operational and ready to run any extension!</li>
-                  </ol>
+
+                  <div className="space-y-2 mt-3 pt-3 border-t border-[#30363d]/50">
+                    <h4 className="text-xs font-semibold text-white flex items-center gap-1.5">
+                      🖱️ Action 2: Right-Click the Blank Screen inside NoVNC
+                    </h4>
+                    <p className="text-[11px] text-gray-400 leading-relaxed">
+                      The blank screen with sidebars inside NoVNC is actually your minimalist Linux desktop!
+                    </p>
+                    <ul className="list-disc pl-5 text-[11px] text-gray-400 space-y-1 leading-relaxed">
+                      <li><strong>Right-click anywhere</strong> on the empty white/grey area of the NoVNC display tab.</li>
+                      <li>In the application menu that pops up, hover over <strong>Applications</strong>, then click on <strong>Shells / Terminal</strong> (or go to Internet / Web Browser).</li>
+                      <li>In the terminal window that opens directly on your VNC screen, type <code className="text-emerald-400 font-mono">google-chrome --no-sandbox</code> and press <strong>Enter</strong>.</li>
+                    </ul>
+                  </div>
+
+                  <div className="space-y-2 mt-3 pt-3 border-t border-[#30363d]/50">
+                    <h4 className="text-xs font-semibold text-white">
+                      💡 Why is there no desktop icon?
+                    </h4>
+                    <p className="text-[11px] text-gray-400 leading-relaxed">
+                      Lightweight container desktops run minimal window managers (like Openbox or Fluxbox) to save system memory. There are no desktop folders/icons by default. All apps, terminals, and file explorers are accessed simply by <strong>right-clicking anywhere on the background screen</strong>!
+                    </p>
+                  </div>
                 </div>
 
                 <div className="bg-[#161b22] border border-[#30363d] p-4 rounded-lg flex flex-col sm:flex-row sm:items-center justify-between gap-4">
