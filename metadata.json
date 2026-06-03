@@ -1,0 +1,6 @@
+{
+  "name": "Virtual Chrome Desktop",
+  "description": "An interactive desktop browser workspace to simulate extensions, download Microsoft Teams recordings, and upload files to Google Drive.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
