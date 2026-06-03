@@ -1,6 +1,9 @@
 {
   "name": "Virtual Chromium NoVNC Sandbox",
   "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "containerEnv": {
+    "DISPLAY": ":1"
+  },
   "features": {
     "ghcr.io/devcontainers/features/desktop-lite:1": {
       "version": "latest",
@@ -22,5 +25,5 @@
       "onAutoForward": "openBrowser"
     }
   },
-  "postCreateCommand": "echo 'VNC Server successfully initialized on Port 6080! Launching simulated Chromium browser...'"
+  "postCreateCommand": "sudo apt-get update && sudo apt-get install -y wget && wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && sudo apt-get install -y ./google-chrome-stable_current_amd64.deb && rm google-chrome-stable_current_amd64.deb && echo 'Google Chrome successfully installed! Launching manually or automatically inside VNC display :1.'"
 }

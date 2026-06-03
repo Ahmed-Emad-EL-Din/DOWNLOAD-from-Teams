@@ -27,6 +27,9 @@ export default function GitHubBrowser({ onLaunchBrowser }: GitHubBrowserProps) {
     { name: '.devcontainer/devcontainer.json', type: 'file', size: '1.8 KB', content: `{
   "name": "Virtual Chromium NoVNC Sandbox",
   "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "containerEnv": {
+    "DISPLAY": ":1"
+  },
   "features": {
     "ghcr.io/devcontainers/features/desktop-lite:1": {
       "version": "latest",
@@ -48,7 +51,7 @@ export default function GitHubBrowser({ onLaunchBrowser }: GitHubBrowserProps) {
       "onAutoForward": "openBrowser"
     }
   },
-  "postCreateCommand": "echo 'NoVNC Server successfully initialized on Port 6080! Launching simulated Chromium browser...'"
+  "postCreateCommand": "sudo apt-get update && sudo apt-get install -y wget && wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && sudo apt-get install -y ./google-chrome-stable_current_amd64.deb && rm google-chrome-stable_current_amd64.deb && echo 'Google Chrome successfully installed! Launched inside VNC display :1.'"
 }` },
     { name: 'extension/', type: 'folder', size: '-' },
     { name: 'extension/manifest.json', type: 'file', size: '1.2 KB', content: `{
@@ -365,6 +368,26 @@ This repo details and implements a custom browser-level network workflow:
                       By using <code className="text-emerald-400 font-mono font-semibold">base:ubuntu</code>, the build size shrinks by <strong>95%</strong> (meaning it downloads and boots up in under 45 seconds!) and completely avoids container UID/GID mismatch issues during the Docker layer assembly.
                     </li>
                   </ul>
+                </div>
+
+                <div className="p-4 bg-amber-500/[0.04] border border-amber-500/20 rounded-lg space-y-3">
+                  <h3 className="text-amber-400 font-bold text-sm flex items-center gap-2">
+                    🖥️ White/Blank Screen in NoVNC? Here is exactly what to do!
+                  </h3>
+                  <p className="text-xs text-gray-300 leading-relaxed">
+                    Ubuntu's default <code className="text-amber-300 font-mono">chromium-browser</code> package is just a redirection wrapper to Ubuntu <strong>snaps</strong>. However, unprivileged Docker containers (like GitHub Codespaces or Gitpod) are completely locked out of using <strong>snapd</strong>! This is why your Chromium snap install skipped and left you with a blank screen.
+                  </p>
+                  <p className="text-xs font-semibold text-white">
+                    Copy and paste this multi-stage command into your GitHub Codespaces Terminal to install <strong>real standalone Google Chrome</strong> (no snaps required) and launch it inside VNC instantly:
+                  </p>
+                  <div className="p-3 bg-black/50 rounded border border-[#30363d] font-mono text-xs text-[#58a6ff] select-all overflow-x-auto whitespace-pre leading-relaxed">
+                    {`sudo apt-get update && sudo apt-get install -y wget && wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && sudo apt-get install -y ./google-chrome-stable_current_amd64.deb && rm google-chrome-stable_current_amd64.deb && export DISPLAY=:1 && google-chrome --no-sandbox --disable-dev-shm-usage &`}
+                  </div>
+                  <ol className="list-decimal pl-5 text-[11px] text-gray-400 space-y-1.5 leading-relaxed">
+                    <li>Type or paste the above line into your bottom Terminal window in VS Code/GitHub and press <strong>Enter</strong>.</li>
+                    <li>This will download the official Google Chrome executable package directly from Google servers, install all underlying dependencies cleanly, and launch the browser targeted directly on display <strong>:1</strong> (the exact screen connected to your VNC browser viewer tab!).</li>
+                    <li>Watch your NoVNC browser viewer tab—<strong>Google Chrome will pop up instantly on your screen</strong>, fully operational and ready to run any extension!</li>
+                  </ol>
                 </div>
 
                 <div className="bg-[#161b22] border border-[#30363d] p-4 rounded-lg flex flex-col sm:flex-row sm:items-center justify-between gap-4">
